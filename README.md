@@ -9,9 +9,9 @@ Unified premium StreamElements custom widgets with consistent theming, performan
 ## Widget Matrix
 | Widget | Version | Folder | Core Highlights | Docs |
 |--------|---------|--------|-----------------|------|
-| Donation & Subgoal Bar | 0.9.3-pre | `donogoal subgoal bar/` | Multi-level goals, merged glow engine, per-event confetti, ambient shine, Smart Auto Contrast | [README](donogoal%20subgoal%20bar/README.md) |
-| Raid Terminal Tracker | 0.2.0 | `RAID Terminal Tracker/` | Raider qualification logic, delayed reveal, ASCII tree, activity stats | [README](RAID%20Terminal%20Tracker/README.md) |
-| IG Multi-Popup | 0.6.0 | `IG POP-UP Widget/` | Rotating social / CTA set, stable interval scheduling, random/sequence modes | [README](IG%20POP-UP%20Widget/README.md) |
+| Donation & Subgoal Bar | 0.9.3-pre | `donation-subgoal-bar/` | Multi-level goals, merged glow engine, per-event confetti, ambient shine, Smart Auto Contrast | [README](donation-subgoal-bar/README.md) |
+| Raid Terminal Tracker | 0.2.0 | `raid-terminal-tracker/` | Raider qualification logic, delayed reveal, ASCII tree, activity stats | [README](raid-terminal-tracker/README.md) |
+| IG Multi-Popup | 0.6.0 | `ig-multi-popup/` | Rotating social / CTA set, stable interval scheduling, random/sequence modes | [README](ig-multi-popup/README.md) |
 
 Accent + background design language: default accent `#ff7500`, background `#2d2d2d` (per-widget overrides via fields).
 
@@ -56,11 +56,17 @@ dist/ig-multi-popup/ig-multi-popup-v0.6.0.zip
 - Optional minimal HUD mode.
 
 ## Versioning Strategy
-Pre-1.0 semantic versions per widget (independent). Tag pattern examples:
+Pre-1.0 semantic versions per widget (independent). Current (legacy) tags exist using condensed names. From the next release, prefer folder-aligned tag pattern:
 ```
-git tag donationbar-v0.9.3-pre
-git tag raidterminal-v0.2.0
-git tag igpopup-v0.6.0
+# Legacy tags (already pushed):
+donationbar-v0.9.3-pre
+raidterminal-v0.2.0
+igpopup-v0.6.0
+
+# Recommended new pattern (align with folder names):
+donation-subgoal-bar-v0.9.4-pre
+raid-terminal-tracker-v0.2.1
+ig-multi-popup-v0.6.1
 ```
 Push tags for release packaging automation.
 
