@@ -59,3 +59,15 @@ temp/
 ########################################
 *.DS_Store?
 ~$*
+
+########################################
+# Commercialization (added)
+########################################
+# Future regenerated commercialization summaries (current one kept committed):
+# donation-subgoal-bar/COMMERCIALIZATION_SUMMARY.txt
+# Scratch planning files
+scratch_*/
+*.planning.tmp
+
+# If you later auto-build widget release zips to a release/ folder uncomment:
+# release/

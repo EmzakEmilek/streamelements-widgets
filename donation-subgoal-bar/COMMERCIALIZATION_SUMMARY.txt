@@ -1,0 +1,186 @@
+DONATION & SUBGOAL BAR – COMMERCIALIZATION SUMMARY (v0.9.3-pre)
+Generated: 2025-09-28
+
+============================================================
+1. UNIQUE VALUE / USP
+------------------------------------------------------------
+Multi-level (up to 10) cascading donation goals with non-reset percent logic, subscriber milestone formatting, dual confetti groups (micro vs goal), unified glow engine w/ intensity mapping, ambient idle shine, Smart Auto Contrast (adaptive readability), performance safeguards (throttle + caps + duplicate tip filtering), and bilingual documentation (EN/SK). Stable event handling and temporary progress bar color sync create polished feedback loops.
+
+Short pitch:
+“Advanced multi-level donation & subgoal bar with intelligent contrast, dual celebration FX, ambient motion, and performance-safe design.”
+
+============================================================
+2. COMPETITOR LANDSCAPE (QUALITATIVE)
+------------------------------------------------------------
+Baseline SE Goal Widget: single goal, minimal animation, no milestone formatting.
+Generic Community Scripts: often lack performance throttling, multi-level support, or autocontrast.
+Overlay Pack Marketplaces (OWN3D, NerdOrDie): focus on visual theme bundles; multi-level logic rare.
+Your edge: structured multi-level progression + robust code quality + localized docs.
+
+============================================================
+3. DISTRIBUTION CHANNEL SCORING
+------------------------------------------------------------
+Scale 1 (poor) – 5 (strong). Criteria: audience fit, control, friction, revenue share, authenticity.
+
+PRIMARY (initial focus):
+- Discord (Onyxx + own) .......... 4.8  (direct feedback, zero fees)
+- Gumroad / Lemon Squeezy ........ 4.3  (fast launch, tax handling, coupons)
+- Twitch panel + chatbot command ..4.3  (in-stream conversion, authenticity)
+- Ko-fi Shop ...................... 3.5  (casual supporter appeal)
+- OWN3D / NerdOrDie marketplace ... 3.9  (reach vs control tradeoff)
+- Twitter/X teasers / short clips . 3.8  (awareness funnel)
+- Itch.io (tools) ................. 3.2  (secondary audience)
+
+ADDITIONAL (as requested):
+- Fiverr .......................... 2.5  (Gig model favors custom commissions, less scalable for productized widget; risk of scope creep)
+- Upwork .......................... 2.2  (Primarily contract sourcing; per-project bureaucracy; low product discoverability)
+- Etsy ............................ 2.0  (Buyer intent is physical/digital art assets; streaming utilities niche; algorithm mismatch)
+
+LOW PRIORITY (hold): Patreon (3.0), GitHub Sponsors (2.2).
+
+Recommended launch bundle: Discord + Gumroad + Twitch panel. Expand once stable testimonials exist.
+
+============================================================
+4. PRICING & PACKAGING PROPOSAL
+------------------------------------------------------------
+Tiers (one-time baseline):
+- Early Access (limited time): 11 € (future list 14 €)
+- Standard (post 1.0): 14 € (includes all 1.x updates)
+- Creator Bundle (future 3–4 widgets): 32–36 €
+- Commercial / Agency: 75–120 € (multi-channel rights + priority support)
+
+Optional Free/Lite (consider later): max 3 levels, no ambient or goal confetti, optional subtle "Powered by" footer.
+
+Licenses:
+- Personal: single channel.
+- Creator+: up to 3 channels you operate.
+- Commercial: multi-brand / agency use, priority response.
+Upgrade path: pay difference (credit earlier purchase).
+
+Discounts:
+- Onyxx Beta testers: 50% lifetime coupon (ONYXX-EARLY)
+- Launch promo: -20% first 14 days
+- Bundle discount: -15% on 2+ paid widgets
+
+============================================================
+5. TONE & BRANDING STRATEGY
+------------------------------------------------------------
+Hybrid: professional clarity + friendly authentic CZ/SK streamer voice.
+Avoid over-corporate claims; emphasize stability, performance, and multi-level clarity.
+Docs stay precise; Discord announcements concise bullet style; marketing copy uses real overlay screenshots/GIFs.
+
+Message pillars:
+- Performance-safe
+- Multi-level clarity
+- Celebration without spam
+- Localization & accessibility
+
+============================================================
+6. ONYXX CLOSED BETA PLAN
+------------------------------------------------------------
+Target: 8–15 testers (diverse channel sizes).
+Artifacts: private Discord category (#bar-announcements, #bar-feedback, #bar-bugs).
+Onboarding Pack: ZIP (versioned), README, feedback template.
+Feedback Template: version, description, expected vs actual, repro steps, severity, media.
+Cadence: weekly digest + Kanban triage (To triage / In progress / Fixed / Deferred).
+Incentives: Lifetime 50% coupon + mention + possible preset showcase.
+Milestones: Beta1 (stability) → Beta2 (UX refine) → RC (zero critical) → 1.0.0 launch.
+Exit criterion: 2 weeks no critical bug post-RC.
+
+============================================================
+7. OPERATIONS & DELIVERY STACK
+------------------------------------------------------------
+Sales Platform: Lemon Squeezy (EU VAT) or Gumroad (speed). ZIP packaging.
+Versioning: tag per widget (donation-subgoal-bar@0.9.3-pre → 0.9.4 → 1.0.0).
+Changelog style: [Added] [Improved] [Fixed] [Perf] [Docs].
+Support: Central Discord threads (48h SLA personal, 24h commercial optional).
+Refund policy: 7 days for non-functionality / unresolved critical issues.
+License enforcement: soft (EULA + update channel). Hard (keys) deferred.
+Future SaaS option: Cloud presets sync (subscription upsell).
+
+============================================================
+8. RISK & MITIGATION MATRIX
+------------------------------------------------------------
+Piracy ............ Rapid update cadence + community value (support) + optional Lite watermark.
+Support overload .. Triage template + consolidated channels + priority flags.
+Scope creep ....... Roadmap scoring (Impact / Effort / Alignment) & monthly freeze.
+Burnout ........... Batch releases, not continuous patch drip.
+Marketplace cut ... Use as secondary reach, push primary sales to own channel.
+Low adoption ...... Beta testimonials + GIF demos + clear USP bullets.
+Feature parity loss Competitors copying: differentiate via polish, performance metrics, documentation excellence.
+
+============================================================
+9. CHECKLIST (ACTIONABLE)
+------------------------------------------------------------
+CORE LAUNCH
+[ ] Create Discord beta channels & roles
+[ ] Prepare versioned ZIP (donation-subgoal-bar-0.9.3-pre-beta1.zip)
+[ ] Draft Gumroad/Lemon Squeezy listing (hidden)
+[ ] Generate ONYXX-EARLY coupon (50%)
+[ ] Publish feedback template (pinned)
+[ ] Add !widget command to Twitch chatbot
+[ ] Capture 3–5 GIF demos (goal advance, confetti, ambient)
+[ ] Release Beta1 to Onyxx testers
+[ ] Collect & triage issues (week 1 digest)
+[ ] Implement fixes → Beta2
+[ ] Performance pass (confetti stress test, % update throttle validation)
+[ ] Release RC build (0.9.9-rc?)
+[ ] Zero critical issues window (≥14 days)
+[ ] Finalize pricing (set EA discount window)
+[ ] Tag 1.0.0 & publish listing (public)
+[ ] Post launch announcement (Discord, Twitter, Twitch panel update)
+
+LEGAL & DOCS
+[ ] Finalize EULA (contact info + upgrade clause)
+[ ] Add License section to listing
+[ ] Prepare refund policy snippet
+[ ] Create concise marketing copy (EN/SK)
+[ ] Public mini-roadmap (Notion or README section)
+
+MARKETING
+[ ] Early Access banner graphic
+[ ] Testimonials / quotes from 2–3 testers
+[ ] Before/After screenshots (default vs customized theme)
+[ ] Threaded Twitter/X teaser (value bullets + GIF)
+
+OPERATIONS
+[ ] Backup repo & tag integrity check
+[ ] Automate ZIP build script (version injection)
+[ ] Create update announcement template
+[ ] Set Discord role mention rules (@WidgetUpdates)
+
+OPTIONAL FUTURE
+[ ] Evaluate Lite version gating
+[ ] Research cloud preset sync feasibility
+[ ] Plan bundle with other widgets
+
+============================================================
+10. NEXT STEP RECOMMENDATIONS (IMMEDIATE)
+------------------------------------------------------------
+1. Spin up Discord beta structure + role today.
+2. Package current build as Beta1 ZIP.
+3. Draft listing (do not publish) – insert USP bullets + placeholder media.
+4. Generate coupon & store internally.
+5. Start recruiting 10 Onyxx testers (DM short pitch + expectations).
+6. After first week: synthesize feedback → prioritize 3 fixes max.
+7. Begin preparing GIF media concurrently.
+
+============================================================
+11. EXTENDED CHANNEL NOTES (FIVERR / UPWORK / ETSY)
+------------------------------------------------------------
+Fiverr: Good for custom one-off gigs; less ideal for passive product; leads expect personalization → time drain.
+Upwork: Strong for contract development; discovery for a fixed-price overlay widget is low; overhead in proposals.
+Etsy: Marketplace algorithm favors visual art / printable / crafting; streaming utility search volume modest; risk of low conversion.
+Conclusion: Treat them as inbound-only (if at all), not proactive launch pillars.
+
+============================================================
+12. METRICS TO TRACK (ONCE LIVE)
+------------------------------------------------------------
+Adoption: # sales per week, conversion % from listing views.
+Support Load: tickets/week, avg first response time.
+Churn Risk (if subscription later): cancellation reasons category counts.
+Performance: average confetti count tests (manual), reported FPS drops.
+Feature Requests: categorize (FX, UX, Perf, Integration) frequency.
+
+============================================================
+END OF SUMMARY
