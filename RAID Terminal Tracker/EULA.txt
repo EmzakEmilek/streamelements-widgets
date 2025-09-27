@@ -1,0 +1,39 @@
+Raid Terminal Tracker Widget – Extended License (Version 0.2.0)
+=================================================================
+
+1. Grant
+   Non‑exclusive, non‑transferable right to use & modify this widget (HTML/CSS/JS) for overlays on your own streaming channels (including monetized broadcasts and sponsorships tied to the same brand identity).
+
+2. Permitted
+   - Local customization & styling changes
+   - Private backups / forks (non-public)
+   - Team access for the same channel brand
+
+3. Restricted (Require Written Consent)
+   - Resale or redistribution (paid or free) of source or derivative packs
+   - Inclusion in overlay marketplaces, SaaS template platforms, or automated generators
+   - Public reposting of raw or modified source outside authorized channels
+   - Bundling into commercial asset libraries
+
+4. Attribution
+   Future optional attribution/watermark (if introduced) appreciated but not mandatory unless otherwise agreed.
+
+5. Modifications
+   You may adapt for personal use; do not misrepresent original authorship. Derivatives inherit these restrictions.
+
+6. No Warranty
+   Provided "AS IS" without warranty; performance, fitness, or uptime not guaranteed.
+
+7. Updates & Breaking Changes
+   Pre‑1.0 series may introduce breaking adjustments. Pin version if stability required.
+
+8. Termination
+   Violation of Restricted uses terminates the license. You must remove distributed derivative copies.
+
+9. Indemnity
+   You assume all risk and agree to indemnify the author against claims arising from misuse.
+
+10. Contact
+   For commercial bundling / redistribution rights: <ADD CONTACT>.
+
+Revision: 0.2.0

@@ -1,0 +1,40 @@
+Donation & Subgoal Bar Widget – Extended License (Pre-Release 0.9.3-pre)
+=======================================================================
+
+1. Grant of License
+   You are granted a non-exclusive, non-transferable license to use and modify the widget code (HTML/CSS/JS/fields JSON) for overlays on your own streaming channels, including monetized content, sponsorship segments, charity events, and branded activations tied directly to your channel identity.
+
+2. Permitted Uses
+   - Local customization, color/font/animation tuning.
+   - Private forks or backups.
+   - Internal use by collaborators/editors for the same channel brand.
+   - Display during recorded or live broadcast on platforms (Twitch, YouTube, Kick, etc.).
+
+3. Restricted Uses (Require Explicit Written Permission)
+   - Resale of the widget (standalone or bundled).
+   - Inclusion in marketplace packs, overlay shops, SaaS generators, or Patreon “asset drops”.
+   - Public reposting of the raw source (GitHub gists, forums, repositories) outside controlled distribution agreed with author.
+   - Auto-hosted derivative service (e.g., dynamic theming CDN) for third parties.
+
+4. Attribution
+   If a future version introduces an optional attribution toggle or watermark, leaving it enabled is appreciated but not mandatory unless a separate commercial agreement states otherwise.
+
+5. Modifications
+   You may modify for personal use. Modified versions inherit these restrictions. Do not claim sole authorship of the original base.
+
+6. No Warranty / Liability
+   Provided “AS IS” without warranty of any kind (express or implied). You assume all risk for performance, compatibility, regulatory, or business impacts.
+
+7. Updates & Breaking Changes
+   Pre-1.0 series (0.x) may contain breaking adjustments. Pin a known stable version if mission-critical.
+
+8. Termination
+   License automatically terminates if you violate Restricted Uses. Upon termination you must cease distribution and remove derivative packaged copies.
+
+9. Indemnity
+   You agree to indemnify and hold the author harmless from claims arising from misuse, redistribution, or integration conflicts.
+
+10. Contact
+   For commercial bundling, redistribution rights, or extended licensing: <ADD CONTACT METHOD>.
+
+Revision: 0.9.3-pre
