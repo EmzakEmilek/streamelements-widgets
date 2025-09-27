@@ -1,0 +1,59 @@
+<!--
+{
+  "name": "IG Multi-Popup",
+  "version": "0.6.0",
+  "author": "YOUR_NAME",
+  "description": "Rotating Instagram/social call-to-action popup with interval scheduling.",
+  "fields": [
+    { "name": "rotationMode", "label": "Rotation Mode", "type": "select", "options": ["sequence", "random"], "value": "sequence" },
+    { "name": "intervalSeconds", "label": "Interval (s)", "type": "number", "value": 210, "min": 10, "max": 7200 },
+    { "name": "showDurationSeconds", "label": "Visible Duration (s)", "type": "number", "value": 16, "min": 2, "max": 300 },
+    { "name": "initialDelaySeconds", "label": "Initial Delay (s)", "type": "number", "value": 15, "min": 0, "max": 600 },
+    { "name": "accentColor", "label": "Accent Color", "type": "colorpicker", "value": "#ff7500" },
+    { "name": "backgroundColor", "label": "Background Color", "type": "colorpicker", "value": "#2d2d2d" },
+    { "name": "fontSize", "label": "Font Size (px)", "type": "number", "value": 16, "min": 10, "max": 42 },
+    { "name": "debugMode", "label": "Debug Logging", "type": "checkbox", "value": false },
+    { "name": "testMode", "label": "Test Mode (force first)", "type": "checkbox", "value": false },
+    { "name": "popup1Text", "label": "Popup 1 Text", "type": "text", "value": "Daj follow na môj IG <span class=\"username\">emzo_gg!</span> Ďakujem! :-)" },
+    { "name": "popup2Text", "label": "Popup 2 Text", "type": "text", "value": "Pridaj sa na <span class=\"username\">Discord!</span>" },
+    { "name": "popup3Text", "label": "Popup 3 Text", "type": "text", "value": "Sleduj aj <span class=\"username\">TikTok</span> pre klipy" }
+  ]
+}
+-->
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Instagram Follow Popup Widget</title>
+  <link rel="stylesheet" href="instagram-popup.css" />
+</head>
+
+<body>
+  <!-- Main popup container -->
+  <div class="popup-container" id="popup-container">
+    <div class="popup-banner" id="popup-banner">
+      <!-- Dynamic content container -->
+      <div class="content-container" id="content-container">
+        <div class="text-container">
+          Daj follow na môj IG <span class="username">emzo_gg!</span> Ďakujem! :-)
+        </div>
+      </div>
+      
+      <!-- Dynamic follow button -->
+      <div class="follow-button" id="follow-button">
+        <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+        </svg>
+        <span>Follow</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="instagram-popup.js"></script>
+</body>
+</html>

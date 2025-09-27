@@ -1,0 +1,41 @@
+Quick Start (Donation & Subgoal Bar Widget v0.9.3-pre)
+
+1. Import
+- Create a new Custom Widget in StreamElements.
+- Paste the four files: streamelements.html / streamelements.css / streamelements.js / streamelements.fields.json.
+
+2. Configure (Fields Panel)
+- Set Levels (titles + goals) — auto-sort ascending.
+- (Optional) Toggle sub milestone formatting via enableSubGoalMilestones and choose milestoneStep.
+- Configure Donation/Sub glow (merged) + Goal Complete glow (Color, Duration, Style, Pulses).
+- Enable confetti: micro (Donation/Sub) and/or goal-complete (separate presets: count, fall, fade, speed, palette).
+- Adjust progress bar, percent display, text animation, fonts, colors, icons.
+ - Ambient idle effect: set Ambient Shine Interval (>5s) for subtle sweep & icon pulse (heart/twitch single icon modes).
+ - Heart icon mode: switch Icons Mode to Heart for single animated heart.
+ - Smart Auto Contrast (A11Y): leave enabled to auto add subtle shadow if chosen text colors are too close to the background.
+
+3. Test
+- Send Test Tip & Subscription events.
+- Verify: goal progression, milestone/sub display, latest donation scroll (if overflow), glow pulses, confetti bursts, percent/bar updates.
+
+4. Optimize (Optional)
+- Lower confetti presets if FPS dips (Few / Short / Short / Slow).
+- Increase pulses or style for stronger glow; reduce for subtle.
+- Disable micro confetti but keep goal-complete for minimal noise.
+
+5. Debug
+- Enable Debug Logging to print applied field data and glow/confetti triggers to console (F12).
+
+Goal Complete Modes
+- replace: temporarily replaces goal line with completion label
+- flash: flashes completion label then reverts quickly
+- none: no textual change, only effects
+
+Troubleshooting
+- No glow? Ensure Donation/Sub glow enabled + pulses >=1.
+- No confetti? Check enable checkbox & presets not all at lowest.
+- Font wrong? Use exact Google Font name or preset.
+- Percent missing? Option disabled or replace message active.
+- Celebration skipped? Large donation may cross levels; only first newly completed level celebrates.
+
+Version: 0.9.3-pre

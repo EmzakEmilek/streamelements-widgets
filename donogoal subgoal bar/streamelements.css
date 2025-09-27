@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+
+/* Root variables for color and layout */
+:root {
+  --bar-bg-color: #3a3a3a;
+  --text-color: #ffffff;
+  --accent-color: #ff7500;
+  --separator-color: #555;
+  --bar-height: 42px;
+  --bar-font-size: 14px;
+}
+
+/* Base styles for html and body */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: var(--bar-font-family, 'Space Mono'), monospace;
+  font-weight: var(--bar-font-weight, 400);
+  /* text case now configurable via JS (textCaseMode) */
+}
+
+/* Top bar container: background, size, and flex layout */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1920px;
+  height: var(--bar-height);
+  background-color: var(--bar-bg-color);
+  border-bottom: 1px solid #111;
+  padding: 0 15px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Ambient shine subtle sweep */
+.top-bar.ambient-shine {
+  position: relative;
+  overflow: hidden;
+}
+.top-bar.ambient-shine::after {
+  content: "";
+  position: absolute;
+  top:0; left:-30%; width:30%; height:100%;
+  background: linear-gradient(110deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 45%, rgba(255,255,255,0) 90%);
+  animation: ambientSweep 2s ease forwards;
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+@keyframes ambientSweep {
+  0% { transform: translateX(0) skewX(-8deg); opacity:0; }
+  10% { opacity:1; }
+  85% { opacity:1; }
+  100% { transform: translateX(420% ) skewX(-8deg); opacity:0; }
+}
+
+/* Icon gentle pulse/rotate only applied for single-icon twitch/heart when ambient class present */
+.window-controls { isolation: isolate; }
+.top-bar.ambient-shine .window-controls svg:first-child {
+  animation: iconAmbient 2.3s cubic-bezier(.55,.03,.29,.99) forwards;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  /* Force its own layer without filtering siblings */
+  backface-visibility: hidden;
+}
+@keyframes iconAmbient {
+  0%   { transform: scale(1) rotate(0deg); }
+  12%  { transform: scale(1.26) rotate(15deg); }
+  28%  { transform: scale(1.16) rotate(-11deg); }
+  46%  { transform: scale(1.22) rotate(7deg); }
+  63%  { transform: scale(1.12) rotate(-5deg); }
+  78%  { transform: scale(1.10) rotate(3deg); }
+  90%  { transform: scale(1.04) rotate(-1.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Background color comes from field (no theme variants) */
+
+/* Left section: fundraising goal text styling */
+.left-section {
+  display: flex;
+  align-items: center;
+}
+.goal-container {
+  font-size: var(--bar-font-size, 14px);
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+/* Global progress bar (full width, adjustable height) */
+:root { --progress-bar-height: 2px; --progress-bar-empty: #4a4a4a; --progress-intensity: medium; }
+.global-progress { width: 1920px; height: var(--progress-bar-height,2px); position: relative; margin: 0; }
+.global-progress.hidden { display: none; }
+.gp-track { position: absolute; inset: 0; background: var(--progress-bar-empty, #4a4a4a); overflow: visible; }
+/* Intensity mapping (height + glow strength) */
+.global-progress.int-low { --progress-bar-height: 1px; }
+.global-progress.int-medium { --progress-bar-height: 2px; }
+.global-progress.int-strong { --progress-bar-height: 3px; }
+/* Multi-layer glow + core gradient (no cap) */
+.gp-fill { position: absolute; inset: 0; width: 0%; background:
+    radial-gradient(circle at 25% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.15) 40%, rgba(255,255,255,0) 70%),
+    linear-gradient(90deg, var(--progress-bar-color,#ff7500) 0%, var(--progress-bar-color,#ff7500) 100%);
+  filter: brightness(1.08);
+  box-shadow: 0 0 4px var(--progress-bar-glow,rgba(255,117,0,0.7)),0 0 10px var(--progress-bar-glow,rgba(255,117,0,0.5)),0 0 20px var(--progress-bar-glow,rgba(255,117,0,0.35));
+  transition: width .55s cubic-bezier(.25,.8,.3,1), filter .6s ease, background .5s ease, box-shadow .5s ease;
+}
+.int-low   .gp-fill { box-shadow:0 0 3px var(--progress-bar-glow,rgba(255,117,0,0.5)),0 0 6px var(--progress-bar-glow,rgba(255,117,0,0.3)); }
+.int-strong .gp-fill { box-shadow:0 0 6px var(--progress-bar-glow,rgba(255,117,0,0.9)),0 0 16px var(--progress-bar-glow,rgba(255,117,0,0.6)),0 0 28px var(--progress-bar-glow,rgba(255,117,0,0.45)); }
+.gp-fill::after { content:""; position:absolute; left:0; top:0; height:1px; width:100%; background: rgba(255,255,255,0.6); mix-blend-mode:screen; pointer-events:none; }
+.gp-fill::before { content:""; position:absolute; inset:0; background: linear-gradient(90deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 25%); opacity:.85; animation: coreSlide 2.2s linear infinite; pointer-events:none; }
+@keyframes coreSlide { 0%{transform:translateX(-30%);} 100%{transform:translateX(90%);} }
+
+/* Right section: subscribers and donations layout */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.data-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--bar-font-size, 14px);
+  color: var(--text-color);
+  position: relative;
+  top: -1px;
+}
+
+/* Subscriber info: accent color for labels and values */
+/* Colors now configurable per element via CSS custom props set by JS */
+#goal-text { color: var(--goal-text-color, var(--text-color)); }
+#subs-info .label { color: var(--subs-label-color, var(--accent-color)); }
+#subs-info .value { color: var(--subs-value-color, var(--accent-color)); }
+#dono-info .label { color: var(--dono-label-color, var(--text-color)); }
+#dono-info .value { color: var(--dono-value-color, var(--text-color)); }
+.window-controls svg { fill: var(--icons-color, var(--text-color)); }
+
+/* Separator styling between data fields */
+.separator {
+  color: var(--separator-color);
+  font-size: 27px;
+}
+
+/* Donation marquee wrapper: overflow handling */
+.dono-scroll-wrapper {
+  max-width: 350px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.value-container.scrolling .value {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+}
+
+/* Window control icons: size and color */
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.window-controls svg {
+  width: var(--icons-size, 16px);
+  height: var(--icons-size, 16px);
+  fill: var(--icons-color, var(--text-color));
+}
+
+/* Typing effect: blinking cursor animation */
+.typing::after {
+  content: '_';
+  animation: blink-caret 1s step-end infinite;
+}
+
+/* Smart Auto Contrast outlines (applied selectively via JS) */
+.low-contrast-goal #goal-text,
+.low-contrast-subs #subs-info .label,
+.low-contrast-subs #subs-info .value,
+.low-contrast-dono #dono-info .label,
+.low-contrast-dono #dono-info .value {
+  text-shadow: 0 0 2px rgba(0,0,0,0.75), 0 0 4px rgba(0,0,0,0.55);
+}
+
+/* Keyframes for blinking caret and marquee animation */
+@keyframes blink-caret {
+  from, to { opacity: 0; }
+  50%      { opacity: 1; }
+}
+@keyframes marquee {
+  0%   { transform: translate(0,0); }
+  100% { transform: translate(-100%,0); }
+}
+
+/* Minimal animation set retained (cursor, marquee, confetti) */
+
+/* ========================= CONFETTI ========================= */
+#confetti-layer { position:absolute; left:0; top:0; width:1920px; height:var(--bar-height); pointer-events:none; overflow:visible; z-index:3; }
+/* Pieces now start at bottom edge and continue falling downward (beyond bar bounds) */
+.cf-piece { position:absolute; bottom:0; width:6px; height:10px; border:none; outline:none; box-shadow:none; border-radius:1px; opacity:0; transform:translateY(0px) rotateZ(0deg) scale(1); animation: cf-fall-spin var(--cf-dur,3000ms) linear forwards; will-change: transform, opacity; }
+.cf-piece.sm { width:4px; height:7px; }
+.cf-piece.lg { width:8px; height:14px; }
+@keyframes cf-fall-spin { 0% { opacity:0; transform: perspective(60px) translateY(0px) translateX(0) rotateZ(0deg) rotateX(0deg) rotateY(0deg); }
+ 10% { opacity:1; }
+ 88% { opacity:1; }
+ 100% { opacity:0; transform: perspective(60px) translateY(var(--fallY,60px)) translateX(var(--drift,0px)) rotateZ(var(--rot,160deg)) rotateX(var(--rx,360deg)) rotateY(var(--ry,180deg)); } }
+/* ==================================================================== */

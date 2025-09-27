@@ -1,0 +1,61 @@
+########################################
+# General / OS / Editor
+########################################
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+########################################
+# Node / Package Managers (future tooling)
+########################################
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+########################################
+# Python / Virtualenv (if used later)
+########################################
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+########################################
+# Build / Distribution Artifacts
+########################################
+dist/
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.bak
+*.orig
+
+########################################
+# Environment / Secrets
+########################################
+.env
+.env.*
+secrets.json
+
+########################################
+# Coverage / Caches / Temp
+########################################
+.cache/
+coverage/
+.nyc_output/
+tmp/
+temp/
+
+########################################
+# Misc
+########################################
+*.DS_Store?
+~$*

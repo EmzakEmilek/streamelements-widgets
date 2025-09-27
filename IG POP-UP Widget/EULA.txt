@@ -1,0 +1,39 @@
+IG Multi-Popup Widget – Extended License (Version 0.6.0)
+=========================================================
+
+1. Grant
+   Non‑exclusive, non‑transferable license to use & modify this widget for your own streaming overlays (personal/commercial channel).
+
+2. Permitted
+   - Local modifications (text, timing, visuals)
+   - Private forks & backups
+   - Internal editors/team members for the same brand
+
+3. Restricted (Need Written Permission)
+   - Redistribution or resale of raw or modified source (paid or free)
+   - Inclusion in overlay shops / SaaS generators / asset packs
+   - Public reposting of full code repositories
+   - Automated hosted “theme switching” services for third parties
+
+4. Branding / Attribution
+   If future optional attribution is added leaving it enabled is appreciated (not mandatory unless separately contracted).
+
+5. Derivatives
+   Modified versions remain bound by this license; do not claim original authorship.
+
+6. Warranty
+   Provided “AS IS” with no guarantees of performance, availability, or fitness for purpose.
+
+7. Updates
+   Pre‑1.0 cycles may contain breaking changes. Pin the version you deploy.
+
+8. Termination
+   Breach of Restricted terms voids license; remove distributed derivatives.
+
+9. Indemnity
+   You accept responsibility for integration impacts and agree to indemnify author from related claims.
+
+10. Contact
+   For extended or multi‑client distribution rights: <ADD CONTACT>.
+
+Revision: 0.6.0

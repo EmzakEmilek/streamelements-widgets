@@ -1,0 +1,80 @@
+<!--
+{
+    "name": "Raid Terminal Tracker",
+    "version": "0.2.0",
+    "author": "YOUR_NAME",
+    "description": "Terminal-style raid activity feed with raider-only filtering.",
+    "fields": [
+        { "name": "showDelaySeconds", "label": "Delay after raid (s)", "type": "number", "value": 17, "min": 0, "max": 120 },
+        { "name": "displayDurationSeconds", "label": "Display duration (s)", "type": "number", "value": 180, "min": 30, "max": 1200 },
+        { "name": "maxActivities", "label": "Max activities", "type": "number", "value": 30, "min": 5, "max": 150 },
+        { "name": "onlyRaiders", "label": "Show only raiders", "type": "checkbox", "value": true },
+        { "name": "requireMessageToQualify", "label": "Raider must send message", "type": "checkbox", "value": true },
+        { "name": "acceptSilentEvents", "label": "Allow silent follow/sub/dono", "type": "checkbox", "value": false },
+        { "name": "autoHide", "label": "Auto-hide enabled", "type": "checkbox", "value": true },
+        { "name": "accentColor", "label": "Accent / highlight color", "type": "colorpicker", "value": "#ff7500" },
+        { "name": "backgroundColor", "label": "Background color", "type": "colorpicker", "value": "#2d2d2d" },
+        { "name": "fontSize", "label": "Font size (px)", "type": "number", "value": 14, "min": 10, "max": 26 },
+        { "name": "debugMode", "label": "Debug logging", "type": "checkbox", "value": false },
+        { "name": "testMode", "label": "Test mode (auto show)", "type": "checkbox", "value": false }
+    ]
+}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raid Terminal Tracker</title>
+    <link rel="stylesheet" href="raid-terminal.css">
+</head>
+<body>
+    <!-- Minimal Raid Terminal Container -->
+    <div id="raid-terminal-container" class="terminal-container hidden">
+        <!-- Terminal Header -->
+        <div class="terminal-header">
+            raid tracking terminal
+        </div>
+        
+        <!-- Terminal Content -->
+        <div class="terminal-content">
+            <!-- Static Raid Info Section -->
+            <div id="raid-info" class="raid-info-static">
+                <div class="terminal-line">
+                    <span class="prompt">></span>
+                    <span class="text">raid od: </span><span id="raider-name" class="highlight">loading...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">></span>
+                    <span class="text">naposledy hrali: </span><span id="raid-game" class="highlight">loading...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">></span>
+                    <span class="text">raideri: </span><span id="raid-count" class="highlight">0 viewers</span>
+                </div>
+            </div>
+            
+            <!-- Separator -->
+            <div class="separator-line"></div>
+            
+            <!-- Scrollable Activity Feed -->
+            <div class="activity-container">
+                <div id="activity-feed" class="activity-section">
+                    <!-- Activities will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terminal Footer with stats -->
+        <div class="terminal-footer">
+            <div class="stats">
+                follows: <span id="follow-count" class="highlight">0</span> | 
+                messages from raiders: <span id="message-count" class="highlight">0</span> | 
+                active: <span id="activity-timer" class="highlight">00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="raid-terminal.js"></script>
+</body>
+</html>
