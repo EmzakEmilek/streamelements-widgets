@@ -111,7 +111,10 @@ function getNextSlot() {
 function renderSlot(slot) {
   if (!slot || !popupRoot) return;
   const defs = resolveTypeDefaults(slot.type);
-  const text = slot.text || 'Check it out!';
+  let text = slot.text || 'Check it out!';
+  // Auto-fix: pridaj medzeru pred/za zvýraznený span ak chýba
+  text = text.replace(/([^\s>])(<span[^>]*class=["']hl["'][^>]*>)/g, '$1 $2'); // pred span
+  text = text.replace(/(<\/span>)([^\s<])/g, '$1 $2'); // za span
   const buttonText = slot.buttonText || defs.button;
   const primaryColor = slot.primaryColor || defs.primary;
   popupTextEl.innerHTML = text;
