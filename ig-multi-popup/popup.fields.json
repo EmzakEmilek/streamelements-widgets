@@ -1,0 +1,85 @@
+{
+  "_meta": { "name": "Multi-CTA Popup", "version": "0.8.1", "description": "Up to 6 rotating CTA popup slots (sequential)." },
+  
+  "rotationIntervalSeconds": { "type": "number", "label": "[CORE] Interval Between Popups (s)", "value": 210, "min": 5, "max": 7200 },
+  "showDurationSeconds": { "type": "number", "label": "[CORE] Visible Duration (s)", "value": 16, "min": 2, "max": 600 },
+  "animationStyle": { "type": "dropdown", "label": "[ANIM] Animation Style", "value": "bounce", "options": { "bounce": "Bounce", "move": "Move", "fade": "Fade", "slide": "Slide", "pop": "Pop" } },
+  "positionVertical": { "type": "dropdown", "label": "[POS] Vertical Position", "value": "bottom", "options": { "top": "Top", "bottom": "Bottom" } },
+  "positionVerticalOffset": { "type": "dropdown", "label": "[POS] Vertical Offset Tier", "value": "mid-offset", "options": { "near-edge": "Near Edge", "mid-offset": "Mid", "deep-offset": "Deep" } },
+  "positionHorizontal": { "type": "dropdown", "label": "[POS] Horizontal Position", "value": "center", "options": { "left": "Left", "center": "Center", "right": "Right" } },
+
+  
+  "widgetBorderEnabled": { "type": "checkbox", "label": "[STYLE] Show Border", "value": true },
+  "widgetShadowEnabled": { "type": "checkbox", "label": "[STYLE] Show Shadow", "value": true },
+  "widgetRoundedCorners": { "type": "checkbox", "label": "[STYLE] Rounded Widget Corners", "value": false },
+  "buttonRoundedCorners": { "type": "checkbox", "label": "[STYLE] Rounded Button Corners", "value": false },
+  "idleShineEnabled": { "type": "checkbox", "label": "[STYLE] Idle Shine Mid-Show", "value": true },
+  "baseBackgroundColor": { "type": "colorpicker", "label": "[COLOR] Background Color", "value": "#2d2d2d" },
+  "baseTextColor": { "type": "colorpicker", "label": "[COLOR] Base Text Color", "value": "#ffffff" },
+  "baseHighlightColor": { "type": "colorpicker", "label": "[COLOR] Highlight Text Color", "value": "#ff7500" },
+  "autoContrast": { "type": "checkbox", "label": "[A11Y] Auto Contrast Adjust", "value": false },
+  "debugMode": { "type": "checkbox", "label": "[DEV] Debug Logging", "value": false },
+
+  
+  "_info_slotTypes": { "type": "text", "label": "[INFO] Supported Slot Types", "value": "instagram, discord, donate, merch, patreon, kofi, tiktok, youtube, x, threads, steam, newsletter, website, custom1, custom2" },
+
+  
+  "slot1Enabled": { "type": "checkbox", "label": "[SLOT1] Enabled", "value": true },
+  "slot1Type": { "type": "dropdown", "label": "[SLOT1] Type", "value": "instagram", "options": { "instagram": "Instagram", "discord": "Discord", "donate": "Donate" } },
+  "slot1UseDefaultIcon": { "type": "checkbox", "label": "[SLOT1] Use Default Icon", "value": true },
+  "slot1IconOverride": { "type": "text", "label": "[SLOT1] Icon Override (SVG)", "value": "" },
+  "slot1ButtonShowIcon": { "type": "checkbox", "label": "[SLOT1] Show Button Icon", "value": true },
+  "slot1Text": { "type": "text", "label": "[SLOT1] Text", "value": "Daj follow na môj IG <span class=\"hl\">emzo_gg</span>!" },
+  "slot1ButtonText": { "type": "text", "label": "[SLOT1] Button Text", "value": "Follow" },
+  "slot1PrimaryColor": { "type": "colorpicker", "label": "[SLOT1] Primary Color (optional)", "value": "" },
+
+  
+  "slot2Enabled": { "type": "checkbox", "label": "[SLOT2] Enabled", "value": true },
+  "slot2Type": { "type": "dropdown", "label": "[SLOT2] Type", "value": "discord", "options": { "discord": "Discord", "donate": "Donate", "instagram": "Instagram" } },
+  "slot2UseDefaultIcon": { "type": "checkbox", "label": "[SLOT2] Use Default Icon", "value": true },
+  "slot2IconOverride": { "type": "text", "label": "[SLOT2] Icon Override (SVG)", "value": "" },
+  "slot2ButtonShowIcon": { "type": "checkbox", "label": "[SLOT2] Show Button Icon", "value": true },
+  "slot2Text": { "type": "text", "label": "[SLOT2] Text", "value": "Pripoj sa na náš <span class=\"hl\">Discord</span> server!" },
+  "slot2ButtonText": { "type": "text", "label": "[SLOT2] Button Text", "value": "Join" },
+  "slot2PrimaryColor": { "type": "colorpicker", "label": "[SLOT2] Primary Color (optional)", "value": "" },
+
+  
+  "slot3Enabled": { "type": "checkbox", "label": "[SLOT3] Enabled", "value": true },
+  "slot3Type": { "type": "dropdown", "label": "[SLOT3] Type", "value": "donate", "options": { "donate": "Donate", "merch": "Merch", "patreon": "Patreon" } },
+  "slot3UseDefaultIcon": { "type": "checkbox", "label": "[SLOT3] Use Default Icon", "value": true },
+  "slot3IconOverride": { "type": "text", "label": "[SLOT3] Icon Override (SVG)", "value": "" },
+  "slot3ButtonShowIcon": { "type": "checkbox", "label": "[SLOT3] Show Button Icon", "value": true },
+  "slot3Text": { "type": "text", "label": "[SLOT3] Text", "value": "Ďakujem za <span class=\"hl\">podporu</span>!" },
+  "slot3ButtonText": { "type": "text", "label": "[SLOT3] Button Text", "value": "Donate" },
+  "slot3PrimaryColor": { "type": "colorpicker", "label": "[SLOT3] Primary Color (optional)", "value": "" },
+
+  
+  "slot4Enabled": { "type": "checkbox", "label": "[SLOT4] Enabled", "value": false },
+  "slot4Type": { "type": "dropdown", "label": "[SLOT4] Type", "value": "tiktok", "options": { "tiktok": "TikTok", "youtube": "YouTube", "x": "X" } },
+  "slot4UseDefaultIcon": { "type": "checkbox", "label": "[SLOT4] Use Default Icon", "value": true },
+  "slot4IconOverride": { "type": "text", "label": "[SLOT4] Icon Override (SVG)", "value": "" },
+  "slot4ButtonShowIcon": { "type": "checkbox", "label": "[SLOT4] Show Button Icon", "value": true },
+  "slot4Text": { "type": "text", "label": "[SLOT4] Text", "value": "Sleduj <span class=\"hl\">TikTok</span> pre klipy" },
+  "slot4ButtonText": { "type": "text", "label": "[SLOT4] Button Text", "value": "View" },
+  "slot4PrimaryColor": { "type": "colorpicker", "label": "[SLOT4] Primary Color (optional)", "value": "" },
+
+  
+  "slot5Enabled": { "type": "checkbox", "label": "[SLOT5] Enabled", "value": false },
+  "slot5Type": { "type": "dropdown", "label": "[SLOT5] Type", "value": "merch", "options": { "merch": "Merch", "patreon": "Patreon", "kofi": "Ko-fi" } },
+  "slot5UseDefaultIcon": { "type": "checkbox", "label": "[SLOT5] Use Default Icon", "value": true },
+  "slot5IconOverride": { "type": "text", "label": "[SLOT5] Icon Override (SVG)", "value": "" },
+  "slot5ButtonShowIcon": { "type": "checkbox", "label": "[SLOT5] Show Button Icon", "value": true },
+  "slot5Text": { "type": "text", "label": "[SLOT5] Text", "value": "Pozri môj <span class=\"hl\">merch</span> obchod" },
+  "slot5ButtonText": { "type": "text", "label": "[SLOT5] Button Text", "value": "Shop" },
+  "slot5PrimaryColor": { "type": "colorpicker", "label": "[SLOT5] Primary Color (optional)", "value": "" },
+
+  
+  "slot6Enabled": { "type": "checkbox", "label": "[SLOT6] Enabled", "value": false },
+  "slot6Type": { "type": "dropdown", "label": "[SLOT6] Type", "value": "newsletter", "options": { "newsletter": "Newsletter", "website": "Website", "custom1": "Custom 1", "custom2": "Custom 2" } },
+  "slot6UseDefaultIcon": { "type": "checkbox", "label": "[SLOT6] Use Default Icon", "value": true },
+  "slot6IconOverride": { "type": "text", "label": "[SLOT6] Icon Override (SVG)", "value": "" },
+  "slot6ButtonShowIcon": { "type": "checkbox", "label": "[SLOT6] Show Button Icon", "value": true },
+  "slot6Text": { "type": "text", "label": "[SLOT6] Text", "value": "Prihlás sa na <span class=\"hl\">newsletter</span>" },
+  "slot6ButtonText": { "type": "text", "label": "[SLOT6] Button Text", "value": "Join" },
+  "slot6PrimaryColor": { "type": "colorpicker", "label": "[SLOT6] Primary Color (optional)", "value": "" }
+}

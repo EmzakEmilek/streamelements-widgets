@@ -1,133 +1,183 @@
-# IG Multi-Popup Widget (Instagram / Social CTA) v0.6.0
+# Multi-CTA Popup Widget (v0.8.2)
 
-Rotating social call-to-action popup for StreamElements with interval scheduling, multi-message rotation, and field-driven customization.
-
----
-## ENGLISH VERSION
-
-### 🎯 Key Features
-| Category | Details |
-|----------|---------|
-| Rotation | Sequence or random order across enabled widgets |
-| Widgets Included | Instagram, Discord, Donate, Subtember, Christmas (seasonal off by default) |
-| Timing | Stable cadence based on last show timestamp (no drift) |
-| Appearance | Slide-in / slide-out animations, button click simulation, username glow |
-| Custom Text | Up to three popup text overrides via fields (popup1/2/3) |
-| Theming | Accent + background + font size fields |
-| Debug | Debug + test mode flags for quick iteration |
-
-### 🧾 Field Configuration (from HTML skeleton)
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| rotationMode | select | sequence | sequence or random widget order |
-| intervalSeconds | number | 210 | Seconds between shows (cadence maintained) |
-| showDurationSeconds | number | 16 | Visible time per popup |
-| initialDelaySeconds | number | 15 | Delay before first popup (independent of interval) |
-| accentColor | color | #ff7500 | Username highlight / accent |
-| backgroundColor | color | #2d2d2d | Panel background |
-| fontSize | number | 16 | Base text size (px) |
-| debugMode | checkbox | false | Verbose logging |
-| testMode | checkbox | false | Auto-show after load for preview |
-| popup1Text | text | IG CTA default | Override Instagram text |
-| popup2Text | text | Discord CTA | Override Discord text |
-| popup3Text | text | Donate/Tertiary CTA | Override Donate text |
-
-### 🔄 Scheduling Logic
-The next popup delay = `intervalSeconds - (now - lastShowTime)` ensuring consistent spacing even if a previous popup was delayed. First popup timing can be shifted using `initialDelaySeconds` without affecting future cadence.
-
-### 🧪 Testing Helpers (Console)
-```javascript
-forceShowPopup();            // Show next widget (rotation)
-forceShowPopup('instagram'); // Force a specific widget id
-forceHidePopup();            // Hide immediately
-togglePopupEnabled();        // Enable/disable rotation
-enableWidget('discord', false); // Disable one widget
-listWidgets();               // Log all widget definitions
-```
-
-### 🛠 Common Adjustments
-| Goal | Change |
-|------|--------|
-| Faster rotation | Lower intervalSeconds (e.g. 120) |
-| Longer presence | Raise showDurationSeconds (e.g. 25) |
-| Random variety | Set rotationMode = random |
-| Disable seasonal | Ensure `christmas.enabled = false` (default) |
-
-### 🎨 Theming Notes
-CSS variables: `--accent-color`, background var applied via fields, plus internal widget theme colors (each widget supplies button gradient & primary color). Field accent overrides highlight username regardless of widget.
-
-### ⚙️ Resilience
-- Guard against double initialization with `isInitialized` flag.
-- Timers cleared before rescheduling to prevent stacking.
-- Rotation safe if some widgets disabled at runtime.
-
-### 💡 Extension Ideas
-- Add Twitch / TikTok widget objects.
-- Add JSON textarea field for an arbitrary list of CTAs.
-- Add per-widget enable/disable fields (current version relies on code changes for base set).
+Languages: [English](#english) | [Slovensky](#slovensky)
 
 ---
-## 🇸🇰 SLOVENSKÁ VERZIA
+## English
 
-### 🎯 Kľúčové Funkcie
-| Kategória | Detaily |
-|-----------|---------|
-| Rotácia | Sekvenčná alebo náhodná |
-| Zahrnuté Widgety | Instagram, Discord, Donate, Subtember, Christmas (sezónny) |
-| Časovanie | Stabilný interval podľa lastShowTime (bez driftu) |
-| Vzhľad | Slide-in / slide-out, simulovaný klik, glow používateľa |
-| Vlastný Text | 3 override fieldy (popup1/2/3) |
-| Téma | Accent, pozadie, veľkosť písma cez fields |
-| Debug | Debug a test mód prepínače |
+### Overview
+A lightweight, configurable rotating Call-To-Action (CTA) widget for StreamElements overlays. Define up to 6 slots (follow, join, donate, subscribe, promo, custom) and let them rotate at a fixed interval with selectable animation styles and theming.
 
-### 🧾 Konfigurácia Fieldov
-| Field | Typ | Default | Popis |
-|-------|-----|---------|-------|
-| rotationMode | select | sequence | Poradie widgetov |
-| intervalSeconds | number | 210 | Interval medzi zobrazeniami |
-| showDurationSeconds | number | 16 | Dĺžka zobrazenia jedného popupu |
-| initialDelaySeconds | number | 15 | Prvé oneskorenie po načítaní |
-| accentColor | color | #ff7500 | Zvýraznenie mena |
-| backgroundColor | color | #2d2d2d | Pozadie panelu |
-| fontSize | number | 16 | Veľkosť textu (px) |
-| debugMode | checkbox | false | Logovanie detailov |
-| testMode | checkbox | false | Auto zobrazenie na začiatku |
-| popup1Text | text | IG text | Vlastný text pre IG |
-| popup2Text | text | Discord text | Vlastný text pre Discord |
-| popup3Text | text | Donate text | Tretí CTA text |
+### Key Use Cases
+- Promote multiple social destinations without clutter
+- Periodically remind viewers of a support action (donate / subscribe)
+- Rotate limited‑time campaign or sponsor highlight
+- Present localized or thematic CTAs uniformly
 
-### 🔄 Logika Intervalu
-Ďalší popup sa naplánuje s ohľadom na čas od posledného zobrazenia: konzistentné rozostupy aj pri menších oneskoreniach.
+### Feature Matrix
+| Capability | Status |
+|------------|--------|
+| Up to 6 slot rotation (sequential) | ✅ |
+| Per-slot: type, text, button label, primary color | ✅ |
+| Per-slot: default or custom icon + toggle | ✅ |
+| Animation style variants (6) | ✅ ("extended" now alias of bounce) |
+| Idle mid-cycle shine effect | ✅ (toggle) |
+| Position presets + offset tiers | ✅ |
+| Border / shadow / rounding toggles | ✅ |
+| External field schema (`fields.json`) | ✅ |
+| Debug helper (`multiPopupDebug`) | ✅ |
+| Auto-contrast / highlight adjustment | 🚧 (planned – 0.8.x) |
+| Weighted / random rotation | ❌ (roadmap candidate) |
+| Scheduling by time-of-day | ❌ (roadmap candidate) |
+| Analytics / tracking | ❌ (out of scope) |
 
-### 🧪 Testovanie (Konzola)
-```javascript
-forceShowPopup();
-forceShowPopup('discord');
-forceHidePopup();
-togglePopupEnabled();
-listWidgets();
-```
+### Field Reference
+Fields are defined externally (upload `fields.json` into the widget editor if not auto-imported). Pattern-based naming avoids duplication.
 
-### 🛠 Bežné Úpravy
-| Cieľ | Úprava |
-|------|--------|
-| Rýchlejšia rotácia | Zníž intervalSeconds |
-| Dlhšie zobrazenie | Zvýš showDurationSeconds |
-| Náhodné poradie | Nastav rotationMode = 'random' |
-| Test pri štarte | Povoliť testMode |
+Global Settings (subset):
+- `rotationIntervalSeconds`: Seconds between popup starts
+- `showDurationSeconds`: Seconds each popup remains visible
+- `animationStyle`: One of `extended|bounce|move|fade|slide|pop` (extended remaps to bounce)
+- `positionVertical`: `top|bottom`
+- `positionVerticalOffset`: `near-edge|mid-offset|deep-offset`
+- `positionHorizontal`: `left|center|right`
+- `widgetBorderEnabled`, `widgetShadowEnabled`, `widgetRoundedCorners`, `buttonRoundedCorners`
+- `idleShineEnabled`
+- `baseBackgroundColor`, `baseTextColor`, `baseHighlightColor`
+- `autoContrast` (planned effect; currently no-op)
+- `debugMode`
 
-### 🎨 Téma
-Accent farba cez field; každý widget má vlastný gradient pre button. Font veľkosť cez `fontSize` field.
+Per Slot (repeat for 1..6 using index N):
+- `slotNEnabled`
+- `slotNType` (e.g. `instagram`, `discord`, `donate`, `promo`, `custom`)
+- `slotNText` (HTML allowed; use `<span class="hl">` for highlight)
+- `slotNButtonText`
+- `slotNPrimaryColor`
+- `slotNUseDefaultIcon` (bool)
+- `slotNIconOverride` (raw inline SVG or empty)
+- `slotNButtonShowIcon` (bool)
 
-### 🧠 Robustnosť
-- Žiadne dvojité inicializácie.
-- Timer vždy resetovaný pred novým plánovaním.
-- Bez memory leakov – iba jeden aktívny timeout.
+### Animation Styles
+| Key | Behavior |
+|-----|----------|
+| extended | (legacy) alias of bounce |
+| bounce | Smooth elastic bounce (unified) |
+| move | Subtle slide upward |
+| fade | Pure opacity fade-in |
+| slide | Longer travel from off-screen space |
+| pop | Quick scale from 0.7 → 1 |
 
-### 💡 Nápady na Rozšírenie
-- TikTok / YouTube CTA.
-- Per-widget enable fieldy.
-- Parameter pre minimálny počet chat správ pred zobrazením.
+Exit uses a unified `hideOut` animation.
+
+### Accessibility
+- Container `role="status"` + `aria-live="polite"` prevents interrupting screen reader context.
+- Hidden state toggled via `aria-hidden` when off-screen.
+- Planned: optional contrast assist (.low-contrast class) when auto-contrast is enabled.
+
+### Debug & Testing
+Open browser dev tools console:
+- `multiPopupDebug()` → returns timing + slot state
+- `forceShowPopup(index?)` → immediately show next (or specific) enabled slot (0-based among enabled)
+- `forceHidePopup()` → hide early
+- `togglePopupEnabled()` → enable/disable cycle
+- `listWidgets()` → console table of slot definitions
+
+### Limitations / Exclusions
+- No persistence or weighting (keeps mental model simple)
+- No analytics or tracking pixels
+- No automatic seasonal theming logic
+- No time-of-day schedule (design simplicity)
+
+### Roadmap Snapshot
+See `ROADMAP.md` for detailed table. Near term: contrast, lightweight shuffle mode, action hooks.
+
+### Installation
+1. Create a new StreamElements Custom Widget.
+2. Paste `popup.html`, `popup.css`, and `popup.js` into the widget tabs.
+3. Import / map fields using contents of `popup.fields.json`.
+4. Adjust global + slot fields; enable desired slots.
+5. Position overlay source above main scene items.
+
+### Versioning
+- Semantic-lite: Minor for feature sets / Patch for cleanup.
+| Current: 0.8.2 (theming & polish: gradients, icon expansion, pulse, unified bounce).
+
+### License
+See `EULA.txt` for tiered licensing (Personal / Creator+ / Commercial). Attribution appreciated but not required for Personal tier.
 
 ---
-*Consistent CTA rotation to drive conversions without spamming the overlay.*
+## Slovensky
+
+### Prehľad
+Ľahký a flexibilný widget pre rotujúce CTA (výzvy k akcii) v StreamElements. Môžeš definovať až 6 slotov (follow, join, donate, subscribe, promo, custom) a nechať ich rotovať v pevnom intervale s výberom animácie a témovania.
+
+### Hlavné Použitia
+- Propagácia viacerých sociálnych sietí bez zahltenia overlay-u
+- Pravidelné pripomenutie podpory (donate / subscribe)
+- Rotácia kampane alebo krátkodobého promo
+- Konzistentné CTA pre rôzne jazyky alebo témy
+
+### Funkčný Prehľad
+| Funkcia | Stav |
+|---------|------|
+| Rotácia až 6 slotov | ✅ |
+| Per-slot typ, text, farba, label tlačidla | ✅ |
+| Per-slot ikona (default/custom + toggle) | ✅ |
+| Varianty animácie (6) | ✅ |
+| Idle shine efekt | ✅ |
+| Pozícia (kombinácie + offset) | ✅ |
+| Border / shadow / zaoblenia | ✅ |
+| Externá schéma polí (`fields.json`) | ✅ |
+| Debug helper (`multiPopupDebug`) | ✅ |
+| Auto-kontrast | 🚧 (plánované) |
+| Váhovaná / náhodná rotácia | ❌ |
+| Časové plánovanie | ❌ |
+| Analytika / tracking | ❌ |
+
+### Polia (Fields)
+Globálne kľúčové premenné (anglické názvy v schéme):
+- `rotationIntervalSeconds`, `showDurationSeconds`
+- `animationStyle`
+- `positionVertical`, `positionVerticalOffset`, `positionHorizontal`
+- `widgetBorderEnabled`, `widgetShadowEnabled`, `widgetRoundedCorners`, `buttonRoundedCorners`
+- `idleShineEnabled`
+- `baseBackgroundColor`, `baseTextColor`, `baseHighlightColor`
+- `autoContrast`, `debugMode`
+
+Per-slot (1..6):
+- `slotNEnabled`, `slotNType`, `slotNText`, `slotNButtonText`, `slotNPrimaryColor`
+- `slotNUseDefaultIcon`, `slotNIconOverride`, `slotNButtonShowIcon`
+
+### Animácie
+Rovnaké kľúče ako v EN sekcii (`extended`, `bounce`, `move`, `fade`, `slide`, `pop`). `hideOut` pri skrytí.
+
+### Prístupnosť
+- `role="status"` + `aria-live="polite"` pre neintruzívne oznamy.
+- `aria-hidden` = true keď je widget skrytý.
+- Budúce: auto-kontrast.
+
+### Debugovanie
+- `multiPopupDebug()` – stav a časovanie
+- `forceShowPopup(index?)` – okamžité zobrazenie
+- `forceHidePopup()` – schovanie
+- `togglePopupEnabled()` – zap / vyp rotácie
+- `listWidgets()` – prehľad slotov
+
+### Obmedzenia
+- Bez váh, analytiky a sezónnej logiky
+- Žiadne plánovanie podľa času
+
+### Roadmap
+Pozri `ROADMAP.md`.
+
+### Inštalácia
+1. Nový Custom Widget v StreamElements.
+2. Vložiť `popup.html`, `popup.css`, `popup.js`.
+3. Načítať definíciu polí (`popup.fields.json`).
+4. Nakonfigurovať globálne a slotové polia.
+
+### Licencia
+Pozri `EULA.txt`. Osobné použitie voľné (dodrž podmienky). Komerčné použitie vyžaduje správny tier.
+
+---
+Updated for version 0.8.2

@@ -1,39 +1,61 @@
-IG Multi-Popup Widget – Extended License (Version 0.6.0)
-=========================================================
+Multi-CTA Popup Widget EULA / License
+Version: 0.8.2
 
-1. Grant
-   Non‑exclusive, non‑transferable license to use & modify this widget for your own streaming overlays (personal/commercial channel).
+IMPORTANT: By using, copying, or distributing this widget (the "Software"), you agree to the terms below.
 
-2. Permitted
-   - Local modifications (text, timing, visuals)
-   - Private forks & backups
-   - Internal editors/team members for the same brand
+1. LICENSE TIERS
+----------------
+Personal (Free)
+- Allowed: Use on personal non-monetized or lightly monetized streams (Twitch / YouTube / Kick etc.)
+- Allowed: Modify styling, text, slot definitions for your channel
+- Allowed: Showcase in portfolio / screenshots
+- Required: Keep this EULA file intact
+- Not Allowed: Resell, repackage, or distribute modified versions as a paid product
 
-3. Restricted (Need Written Permission)
-   - Redistribution or resale of raw or modified source (paid or free)
-   - Inclusion in overlay shops / SaaS generators / asset packs
-   - Public reposting of full code repositories
-   - Automated hosted “theme switching” services for third parties
+Creator+
+- Scope: Streamers or small studios generating revenue directly from sponsored activations or regular donations/subscriptions where the widget materially supports conversion.
+- Added Rights: Use in sponsored overlays, bundle within overlay packs you distribute for free
+- Not Allowed: Direct sale of the widget as a standalone asset
 
-4. Branding / Attribution
-   If future optional attribution is added leaving it enabled is appreciated (not mandatory unless separately contracted).
+Commercial
+- Scope: Agencies, design shops, theme marketplaces, SaaS platforms embedding the widget in a product offering, or inclusion within paid overlay packs.
+- Added Rights: Bundle in paid overlay packages or managed service offerings
+- Conditions: You must provide prominent credit or include attribution in release notes or marketing listing ("Multi-CTA Popup base by original author") unless separately licensed for white-label.
+- Not Allowed: Claim exclusive ownership or register the code as proprietary IP
 
-5. Derivatives
-   Modified versions remain bound by this license; do not claim original authorship.
+2. PROHIBITED USES
+------------------
+- Redistribution for sale without a valid Commercial tier license
+- Embedding telemetry / invasive tracking not disclosed to end users
+- Use in violation of platform ToS or applicable laws
 
-6. Warranty
-   Provided “AS IS” with no guarantees of performance, availability, or fitness for purpose.
+3. MODIFICATION RIGHTS
+----------------------
+You may modify the Software for your deployment. Modified versions remain subject to this EULA. Do not remove structural attribution comments in source headers (version & change summary) in Commercial tier without written permission.
 
-7. Updates
-   Pre‑1.0 cycles may contain breaking changes. Pin the version you deploy.
+4. NO WARRANTY
+--------------
+The Software is provided "AS IS" without warranty of any kind. Use at your own risk.
 
-8. Termination
-   Breach of Restricted terms voids license; remove distributed derivatives.
+5. LIMITATION OF LIABILITY
+--------------------------
+In no event shall the author be liable for any claim, damages, or other liability arising from use or distribution of the Software.
 
-9. Indemnity
-   You accept responsibility for integration impacts and agree to indemnify author from related claims.
+6. VERSIONING & UPDATES
+-----------------------
+- Version 0.6.0: Legacy single CTA base (historical reference)
+- Version 0.7.0-dev: Internal development (slot architecture, animations)
+- Version 0.8.1: Cleanup release (legacy removal, documentation)
+- Version 0.8.2: Theming & polish (gradients, expanded icons, pulse, unified bounce)
+Future updates may refine licensing terms; continuing to use updated releases constitutes acceptance.
 
-10. Contact
-   For extended or multi‑client distribution rights: <ADD CONTACT>.
+7. ATTRIBUTION (Optional for Personal / Creator+)
+-------------------------------------------------
+If you wish to attribute: "Multi-CTA Popup Widget (v0.8.2)" with a link to the repository or author page.
 
-Revision: 0.6.0
+8. CONTACT / COMMERCIAL INQUIRIES
+---------------------------------
+For Commercial tier licensing or white-label inquiries, contact the original author via the repository issue tracker or provided profile channels.
+
+---
+END OF TERMS

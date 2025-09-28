@@ -1,0 +1,211 @@
+IG MULTI POPUP – SÚHRN KONCEPTU ( aktualizované k v0.8.2 )
+===================================================
+Dátum: 2025-09-28 (revize po theming & polish)
+Rozlíšenie cieľ: 1920x1080 (optimalizované pre tento základ – neškálujeme responsívne mimo drobných prispôsobení fontu, cieľ je full‑HD broadcast canvas)
+Platforma: StreamElements Custom Widget (4 sekcie na paste: HTML, CSS, JS, FIELDS.JSON)
+
+AKTUÁLNY STAV / CIEĽ
+----
+Systém Multi‑CTA stabilizovaný: 6 slotov, animácie, alias extended->bounce, per‑type gradienty, rozšírený ikon set, pulz ikon. Ďalšie kroky: auto-contrast + voliteľná randomizácia.
+
+NEOBSAHUJE (explicitne vylúčené)
+--------------------------------
+- Sezónnosť (žiadne auto mesiace / Christmas logika)
+- Weighted rotation (váhy)
+- Quiet hours (tiché okná)
+- Analytics hooks (telemetria)
+- A/B testing (variácie textov)
+
+MAXIMÁ
+------
+- Max 6 popup widget konfigurácií aktívnych naraz (slot1..slot6)
+- Rotácia iteruje len cez tie sloty, ktoré sú ENABLED a majú definovaný typ
+
+ARCHITEKTÚRA POLE SLOTOv
+------------------------
+fields.json bude mať sekcie:
+1. GLOBAL (intervaly, animácie, umiestnenie, farby, rohy, idle shine ...)
+2. SLOT 1 – SLOT 6 (opakujúca sa štruktúra: enable, type, iconOverride?, useDefaultIcon, buttonIconToggle, text, buttonText, highlight logic)
+
+LOGIKA TYP -> PREDEFINOVANÝ OBJEKT (aktuálne)
+----------------------------------
+Každý typ (instagram, discord, donate, merch, patreon, kofi, tiktok, youtube, x, threads, steam, newsletter, website, custom1, custom2) má:
+- defaultIconSVG inline
+- defaultButtonLabel (lowercase enforced)
+- defaultPrimaryColor + gradient definovaný cez `--btn-bg`
+- (future) defaultSuggestedText – zatiaľ nie
+
+Zoznam bude ROZŠÍRENÝ (návrh v1):
+instagram, discord, donate, merch, patreon, kofi, tiktok, youtube, x (twitter), threads, steam, newsletter, website, custom1, custom2
+
+IKONY / ANIMÁCIA IKON
+-----
+- Každý typ = preddefinovaná SVG ikona + jemný pulz (`iconPulse`).
+- `useDefaultIcon` = toggle (invalid override => fallback default)
+- `buttonShowIcon` vypína/zapína ikonu v buttone.
+
+HIGHLIGHT TEXT LOGIKA
+---------------------
+Možnosti:
+Variant A (jednoduchý): Užívateľ zabalí highlight segmenty do <span class="hl"> ... </span> v texte (README vysvetlí). 
+Variant B (structured): Poskytneme 2 text polia: baseText + highlightFragment a vo výsledku ich spojíme (menej flexibility). 
+Preferujeme Variant A (viac slobody, menej fieldov). CSS trieda .hl nadviaže na farbu highlight-u.
+
+FIELDS – SLOT ŠTRUKTÚRA (pre každý slot)
+----------------------------------------
+- slotXEnabled (checkbox)
+- slotXType (dropdown – zoznam typov)
+- slotXUseDefaultIcon (checkbox, default true)
+- slotXIconOverride (text, multiline – len ak UseDefaultIcon = false)
+- slotXButtonShowIcon (checkbox, default true)
+- slotXText (text / textarea – podporuje HTML span.hl)
+- slotXButtonText (text – ak prázdne, default typ button label)
+- slotXPrimaryColor (colorpicker – ak prázdne použijeme default typ primaryColor)
+
+GLOBÁLNE FIELDS
+---------------
+- rotationIntervalSeconds (interval medzi zobrazeniami)
+- showDurationSeconds (čas zobrazenia jedného popupu)
+- animationStyle (dropdown: extended, bounce, move, fade, slide, pop)
+- positionVertical (dropdown: top, bottom)
+- positionVerticalOffset (dropdown: near-edge, mid-offset, deep-offset) -> mapuje na konkrétne px (napr. 60 / 120 / 180 top alebo 100 / 150 / 200 bottom)
+- positionHorizontal (dropdown: center, left, right)
+- widgetBorderEnabled (checkbox)
+- widgetShadowEnabled (checkbox)
+- widgetRoundedCorners (checkbox)
+- buttonRoundedCorners (checkbox)
+- idleShineEnabled (checkbox) – spustí mid-time efekt (ako donation-subgoal-bar ambient shine)
+- baseBackgroundColor (colorpicker)
+- baseTextColor (colorpicker)
+- baseHighlightColor (colorpicker)
+- autoContrast (checkbox) – upraví text/highlight farby pri nízkom kontraste (nevynucujeme highlight zmenu ak ratio už OK)
+- debugMode (checkbox)
+
+STYLING DOPAD
+-------------
+- Border + Shadow sa aplikujú len ak príslušné checkboxy; CSS triedy: .has-border / .has-shadow
+- Okrúhle rohy: .rounded-widget / .rounded-button
+- Idle shine: pridáme keyframes (reuse pattern z donation-subgoal-bar, extrahovať do STYLE-GUIDE.css pre konzistentný efekt naprieč widgetmi)
+- Animácia podľa animationStyle: nastavujeme triedu .anim-extended / .anim-bounce / ... (CSS definované keyframes)
+
+ANIMÁCIE (stav 0.8.2)
+-----------------
+extended (legacy alias -> bounce)
+bounce (hladký unified bounceIn)
+move (jemný posun)
+fade (čisté prelínanie)
+slide (dlhší travel + settle)
+pop (krátky pop scale)
+hideOut + popOut/fadeOut pre exit podľa štýlu
+
+UMIESTNENIE
+----------
+Výpočet tried: positionVertical + positionHorizontal -> kombinujeme do .pos-top-center, .pos-bottom-right, atď. Offset trieda: .offset-tier-1 / 2 / 3
+
+ROTÁCIA
+-------
+- Prejde zoznam slotov v poradí 1..6; vynechá disabled alebo sloty bez typu.
+- Po dobe zobrazenia (showDurationSeconds) prejde na schedule ďalšieho. (Jednoduchá sekvenčná rotácia – random ani váhy neimplementujeme.)
+- Ak všetky sloty prázdne -> log warning + neschedulovať.
+
+KONTRAST (plán)
+--------
+- Ak autoContrast zapnuté: vypočítať luminance(baseBackgroundColor) vs baseTextColor & baseHighlightColor.
+- Minimálny cieľ: ~4.0 ratio pre text, ~3.0 pre highlight (ak highlight používa accent farbu). Pri nevyhovujúcom pomere upravíme len textColor (pridáme #FFFFFF alebo #111111 fallback) – highlight ak nevyhovuje len upozorníme v console (necháme kreatívne farby).
+
+BUTTON / THEMING
+------
+- Lowercase label forced (JS + CSS)
+- Per-type gradient nastavovaný `--btn-bg`
+- Icon pulse animácia
+- Rounded corners riadené global buttonRoundedCorners
+
+DOSTUPNOSŤ (A11Y)
+------------------
+- role="status" aria-live="polite" na kontajneri
+- aria-label generované: "CTA: {resolvedTypeLabel} – {Stripped text}" (HTML tagy odstrániť)
+- Aria len pri zobrazení (pri skrytí aria-hidden=true)
+
+KÓDOVÉ MODULY (JS)
+-------------------
+1. parseFields() -> naplní GLOBAL CONFIG + ARRAY slots[]
+2. buildSlotObjects() -> normalizuje (resolve defaults, icons, colors)
+3. selectNextSlot() -> lineárne s wrap
+4. renderSlot(slot) -> update DOM, apply colors, classes
+5. applyAnimationStyle() -> nastaví relevantné triedy
+6. scheduleShow() / showNow() / hideCurrent()
+7. applyContrastIfNeeded()
+8. debugDump() -> window.multiPopupDebug()
+
+CSS DOPLNKY
+-----------
+- Bude doplnený STYLE-GUIDE.css (zdieľané keyframes: idleShine, popPulse...) – import v HTML nad widget CSS
+- Triedy pre animácie & polohu
+
+HTML ŠTRUKTÚRA (NÁVRH)
+-----------------------
+<div id="multi-popup" class="popup-container anim-extended pos-bottom-center offset-tier-2">
+  <div class="popup-surface has-border has-shadow rounded-widget">
+     <div class="popup-content">
+        <div class="popup-text"> ... </div>
+        <button class="popup-button rounded-button">
+           <span class="icon">SVG?</span>
+           <span class="label">Follow</span>
+        </button>
+     </div>
+  </div>
+</div>
+
+VALIDAČNÉ PRVKY
+---------------
+- Pri parse ak slotXEnabled true a slotXType prázdny -> disable + warning
+- Ikona override: validácia či obsah začína <svg (inak fallback defaultIcon)
+
+EDGE CASES
+----------
+- 0 enabled slotov: timer sa nezapne
+- Všetky sloty majú prázdny text: použijeme defaultSuggestedText (ak existuje) alebo generické "Check it out!"
+- Dlhý text -> text-overflow ellipsis
+- Čas zobrazenia > interval -> interval má prednosť (legitimne môžeme varovať – alebo povoliť prekrývanie? Rozhodnutie: varovať a vynútiť interval >= showDurationSeconds + 1s)
+
+KONZISTENCIA S DONATION WIDGETOM
+--------------------------------
+- Reuse: idle shine anim idea, autoContrast heuristika, debug export pattern (window.multiPopupDebug())
+- README dvojjazyčne rovnako štruktúrované
+
+ROADMAP (UPRAVENÝ FOCUS)
+--------------------------
+- Auto-contrast heuristika
+- Soft random / shuffle mód
+- Weighted rotation (ak dopyt)
+- Quiet hours (nižšia priorita)
+- A/B varianty (nízka priorita)
+- Analytics / event emitters (out of scope zatiaľ)
+
+IMPLEMENTAČNÉ KROKY (HIGH LEVEL)
+---------------------------------
+1. Pridať STYLE-GUIDE.css (ak neexistuje) – shine + common keyframes
+2. Refaktor HTML na generickú štruktúru + placeholder
+3. fields.json: definovať global + 6x slot sekcie
+4. JS modulárna refaktorizácia (slots pole)
+5. Kontrast + highlight CSS (.hl)
+6. Animácie doplniť do CSS
+7. README update podľa novej štruktúry
+8. EULA update + CHANGELOG (0.7.0)
+
+TEST PLAN
+---------
+- 1 slot enabled → rotácia funguje stabilne (cadence maintain)
+- 3 sloty s rôznymi animáciami (zmena animationStyle runtime + refresh)
+- Icon override invalid → fallback default + console warn
+- AutoContrast ON s tmavým pozadím + tmavý text -> text prepnutý na #FFFFFF
+- Idle shine ON → spustí sa ~v polovici showDuration
+- interval < showDuration -> console warn + interval upravený
+
+POZNÁMKY
+--------
+- Umiestnenie: definované triedami, nie inline style (ľahšie udržiavateľné)
+- Nepoužijeme sezónne mesiace – Christmas bude len ďalší typ (užívateľ si ho zapne ručne)
+- Žiadna per-widget cooldown komplikácia – sekvenčne v poradí slotov.
+
+Stav k 0.8.2: Jadro + vizuál hotové. Nasleduje kontrast & randomizácia podľa dopytu.
