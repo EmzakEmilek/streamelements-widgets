@@ -7,7 +7,7 @@ High-level multi-widget timeline. Each widget maintains its own detailed `CHANGE
 |--------|---------|---------|
 | Donation & Subgoal Bar | 0.9.3-pre | Smart Auto Contrast, ambient idle shine, merged donation/sub glow, per-event confetti groups |
 | Raid Terminal Tracker | 0.2.0 | Raider qualification (message / silent event), delayed reveal, ASCII activity tree, pruning & stats |
-| IG Multi-Popup | 0.6.0 | Stable rotation cadence, random/sequence modes, seasonal widget framework, text override fields |
+| IG Multi-Popup | 0.8.2 | Theming & polish: per-type gradients, expanded icon set, pulse, unified bounce (extended alias), docs revamp |
 
 ## Version Tag Pattern
 ```

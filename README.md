@@ -11,7 +11,7 @@ Unified premium StreamElements custom widgets with consistent theming, performan
 |--------|---------|--------|-----------------|------|
 | Donation & Subgoal Bar | 0.9.3-pre | `donation-subgoal-bar/` | Multi-level goals, merged glow engine, per-event confetti, ambient shine, Smart Auto Contrast | [README](donation-subgoal-bar/README.md) |
 | Raid Terminal Tracker | 0.2.0 | `raid-terminal-tracker/` | Raider qualification logic, delayed reveal, ASCII tree, activity stats | [README](raid-terminal-tracker/README.md) |
-| IG Multi-Popup | 0.6.0 | `ig-multi-popup/` | Rotating social / CTA set, stable interval scheduling, random/sequence modes | [README](ig-multi-popup/README.md) |
+| Multi-CTA Popup | 0.8.2 | `ig-multi-popup/` | Rotating CTA system: per-type gradients, expanded icon set, pulse, unified bounce (extended alias) | [README](ig-multi-popup/README.md) |
 
 Accent + background design language: default accent `#ff7500`, background `#2d2d2d` (per-widget overrides via fields).
 
@@ -37,7 +37,7 @@ Example (once refactored will look like):
 ```
 dist/raid-terminal-tracker/raid-terminal-tracker-v0.2.0.zip
 dist/donation-subgoal-bar/donation-subgoal-bar-v0.9.3-pre.zip
-dist/ig-multi-popup/ig-multi-popup-v0.6.0.zip
+dist/ig-multi-popup/ig-multi-popup-v0.8.2.zip
 ```
 
 ## Accessibility
@@ -61,12 +61,12 @@ Pre-1.0 semantic versions per widget (independent). Current (legacy) tags exist 
 # Legacy tags (already pushed):
 donationbar-v0.9.3-pre
 raidterminal-v0.2.0
-igpopup-v0.6.0
+igpopup-v0.6.0 (legacy)
 
 # Recommended new pattern (align with folder names):
 donation-subgoal-bar-v0.9.4-pre
 raid-terminal-tracker-v0.2.1
-ig-multi-popup-v0.6.1
+ig-multi-popup-v0.8.2
 ```
 Push tags for release packaging automation.
 
