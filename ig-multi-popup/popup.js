@@ -112,11 +112,16 @@ function renderSlot(slot) {
   if (!slot || !popupRoot) return;
   const defs = resolveTypeDefaults(slot.type);
   let text = slot.text || 'Check it out!';
-  // Auto-fix: pridaj medzeru pred/za zvýraznený span ak chýba
-  text = text.replace(/([^\s>])(<span[^>]*class=["']hl["'][^>]*>)/g, '$1 $2'); // pred span
-  text = text.replace(/(<\/span>)([^\s<])/g, '$1 $2'); // za span
+  // Auto-fix spacing around highlight spans (.hl / .username) if user omitted spaces
+  // Add space before opening span when stuck to previous non-space char
+  // Match span whose class attribute contains hl or username even among multiple classes
+  text = text.replace(/([^\s>])(<span[^>]*class=["'][^"']*(?:\bhl\b|\busername\b)[^"']*["'][^>]*>)/gi, '$1 $2');
+  // Add space after closing span when next char is non-space and not a tag delimiter
+  text = text.replace(/(<\/span>)([^\s<])/gi, '$1 $2');
   const buttonText = slot.buttonText || defs.button;
   const primaryColor = slot.primaryColor || defs.primary;
+  // Collapse potential multiple spaces inside source text before render
+  text = text.replace(/\s{2,}/g,' ');
   popupTextEl.innerHTML = text;
   popupButtonLabel.textContent = (buttonText || '').toLowerCase();
   if (slot.buttonShowIcon && (slot.useDefaultIcon || slot.iconOverride)) {

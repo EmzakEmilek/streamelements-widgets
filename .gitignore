@@ -69,5 +69,8 @@ temp/
 scratch_*/
 *.planning.tmp
 
+# Local AI assistant onboarding summary (not for commit)
+LLM_ONBOARDING_GUIDE.txt
+
 # If you later auto-build widget release zips to a release/ folder uncomment:
 # release/
