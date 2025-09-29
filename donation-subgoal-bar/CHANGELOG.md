@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.9.3 (Stability & Event Resilience)
+Finalized Smart Auto Contrast release plus production hardening for subscription & donation event handling.
+
+### Added
+- Fallback subscriber increment logic when `subscriber-total` snapshot absent in event payload (derives from last known count + gift quantity).
+- Unified debug logging helper `LOG()` with consistent prefix.
+- LRU-style trimming of processed tip IDs Set (prevents unbounded memory growth on very long streams).
+
+### Changed
+- Promoted version from `-pre` to stable minor 0.9.3 after validation of auto-contrast + ambient shine stack.
+- Merged dual `onWidgetLoad` listeners into one (simpler lifecycle ordering for ambient shine scheduling).
+- Donation parsing now routed through robust `parseAmount()` normalizer (handles €, spaces, commas, mixed locales).
+
+### Fixed
+- Cases where subscription events without accompanying session snapshot produced no visual update.
+- Potential duplicate tip processing on rapid session+event race (extra guard + periodic Set trimming).
+- Ignored non-positive donation payloads (edge anomalies / refunds) to avoid false celebratory FX.
+
+### Internal
+- Helper `getSessionSubscriberCount(detail)` centralizes extraction of subscriber totals.
+- Added guard to skip FX & accumulation when parsed increment <= 0.
+- Ambient setup moved directly into primary widget load path.
+
+### Notes
+- 0.9.4 scope (tentative): optional bits-to-goal inclusion, adaptive width groundwork, advanced error telemetry toggle.
+
+---
+
 ## 0.9.3-pre (Smart Auto Contrast)
 Added accessibility-oriented automatic contrast assist.
 

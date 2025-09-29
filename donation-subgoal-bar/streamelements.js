@@ -1,5 +1,5 @@
 'use strict';
-/* Version: 0.9.3-pre */
+/* Version: 0.9.3 */
 /* Donation & Subgoal Bar (StreamElements Custom Widget)
   Core features: multi-level donation goals, subscriber milestones, latest donation scroll, glow pulses, progress bar,
   per-event confetti (micro vs goal), percent display, font & color customization, duplicate tip protection. */
@@ -10,6 +10,23 @@ let lastSubCount = null;           // previous subscriber count
 let lastDonatorId = null;          // last donation id to avoid duplicate session processing
 let isGoalCompleteMessageActive = false; // lock while showing replace completion text
 const processedTipIds = new Set(); // de-duplicate tip events
+const PROCESSED_TIPS_MAX = 1600;
+const PROCESSED_TIPS_TRIM = 400; // how many oldest to drop when exceeding max
+function trimProcessedTips(){
+  if (processedTipIds.size <= PROCESSED_TIPS_MAX) return;
+  let i = 0;
+  const it = processedTipIds.values();
+  while (i < PROCESSED_TIPS_TRIM) {
+    const n = it.next(); if (n.done) break;
+    processedTipIds.delete(n.value);
+    i++;
+  }
+}
+
+/** Extract subscriber-total count from a detail object (session snapshot). Returns undefined if missing. */
+function getSessionSubscriberCount(detail){
+  return detail?.session?.data?.['subscriber-total']?.count;
+}
 
 
 /* Animation config */
@@ -426,6 +443,29 @@ class GlowEngine {
 
 let __glowEngine = null;
 let __progressColorShiftToken = 0; // control reverting color after glow
+function LOG(...args){ if (FIELD_OVERRIDES?.debugMode) console.log('[DonationBar]', ...args); }
+
+/** Robustly parse numeric donation amount from mixed event fields */
+function parseAmount(raw){
+  if (raw === null || raw === undefined) return 0;
+  if (typeof raw === 'number' && Number.isFinite(raw)) return raw;
+  let str = String(raw).trim();
+  if (!str) return 0;
+  // Remove currency symbols and letters except separators
+  str = str.replace(/[^0-9,\.\-\s]/g,'');
+  // Normalize spaces
+  str = str.replace(/\s+/g,'');
+  // If both comma and dot present, assume comma thousands, dot decimal (1,234.56)
+  if (str.includes(',') && str.includes('.')) {
+    // remove commas
+    str = str.replace(/,/g,'');
+  } else if (str.includes(',') && !str.includes('.')) {
+    // assume European decimal comma
+    str = str.replace(/,/g,'.');
+  }
+  const num = parseFloat(str);
+  return Number.isFinite(num) ? num : 0;
+}
 
 /** Temporarily override progress bar color during glow pulses */
 function tempProgressBarColor(color, pulses, duration) {
@@ -467,7 +507,7 @@ function triggerGlowEffect(type, completedGoalTitle = null) {
     try { tempProgressBarColor(cfg.color, Math.max(1, cfg.pulses || 1), cfg.duration || 1200); } catch(e) { /* noop */ }
   }
   if (type === 'goal-complete' && completedGoalTitle) showSingleGoalComplete(completedGoalTitle);
-  if (FIELD_OVERRIDES.debugMode) console.log('[DonationBar] FX trigger', { type, glowEnabled, cfg });
+  LOG('FX trigger', { type, glowEnabled, cfg, completedGoalTitle });
   // Confetti (micro) triggers independent of glow toggle
   try {
     if (type === 'goal-complete' && CONFETTI_SETTINGS.enableConfettiGoalComplete) {
@@ -619,6 +659,7 @@ function updateGoalText (animate = false) {
     }
   }
   animateText(el, newText, animate);
+  LOG('Goal text updated', { animate, newText, current, levelIndex, level: lvl });
   updateProgressVisual();
 }
 
@@ -814,6 +855,9 @@ window.addEventListener('onWidgetLoad', ({ detail }) => {
     name  : data['tip-latest']?.name,
     amount: data['tip-latest']?.amount || 0
   }, false);
+
+  // After initial field data & visuals, schedule ambient shine setup
+  setTimeout(setupAmbientShine, 1000);
 });
 
 /* Global session update handler */
@@ -826,16 +870,14 @@ window.addEventListener('onSessionUpdate', ({ detail }) => {
   // We'll manage accumulation locally from events/session tip-latest changes.
 
   /* Always use session data for accurate state */
-  if (data['subscriber-total']?.count !== undefined) {
-    // Avoid double glow: session update just syncs silently
-    updateSubCount(data['subscriber-total'].count, false);
-  }
+  const subsSnapshot = getSessionSubscriberCount(detail);
+  if (subsSnapshot !== undefined) updateSubCount(subsSnapshot, false);
   
   /* Handle new donation via session (in case live tip event didn't fire) */
   if (data['tip-latest']) {
     const tip = data['tip-latest'];
     const newTipId = tip._id || tip.id || tip.tipId;
-    const amount = Number(tip.amount) || 0;
+    const amount = parseAmount(tip.amount);
     // Session update only accumulates silently; event listener handles glow
     if (newTipId && newTipId !== lastDonatorId && amount > 0) {
       const oldProgress = Number(goalProgress) || 0;
@@ -867,9 +909,26 @@ window.addEventListener('onEventReceived', ({ detail }) => {
   if (listener === 'subscription-latest' || listener === 'subscriber-latest'
       || event.type === 'subscription' || event.type === 'subscriber') {
     console.log('Subscriber event detected:', event);
-    // use session data for accurate total
-    const sessionData = detail.session?.data || {};
-    const subCount = sessionData['subscriber-total']?.count;
+    // Prefer session data if present; some production events arrive WITHOUT session snapshot
+  let subCount = getSessionSubscriberCount(detail);
+
+    if (subCount === undefined || subCount === null) {
+      // Fallback: derive increment from event payload (gift quantity, months, etc.)
+      const isGiftBundle = Boolean(event.is_gift || event.gifted || event.bulkGifted);
+      // quantity fields (gift bundles)
+      const qty = Number(event.quantity || event.amount || event.count || 1);
+      // For normal single subs amount can represent months (resub streak) – treat as +1 toward total
+      let increment;
+      if (isGiftBundle) {
+        increment = Number.isFinite(qty) && qty > 0 ? qty : 1;
+      } else {
+        // treat any valid positive qty >1 as bundle, else +1
+        increment = (Number.isFinite(qty) && qty > 1) ? 1 : 1;
+      }
+      const base = Number.isFinite(lastSubCount) ? lastSubCount : 0;
+      subCount = base + increment;
+  LOG('Sub fallback applied', { base, increment, derivedTotal: subCount, rawEvent: event });
+    }
     updateSubCount(subCount, true);
     return;
   }
@@ -878,13 +937,19 @@ window.addEventListener('onEventReceived', ({ detail }) => {
     console.log('Tip event detected:', event);
     const eventId = event.id || event._id || event.tipId || `${Date.now()}-${Math.random()}`;
     if (processedTipIds.has(eventId)) {
-      if (FIELD_OVERRIDES.debugMode) console.log('[DonationBar] Duplicate tip event ignored', eventId);
+    LOG('Duplicate tip event ignored', eventId);
       return;
     }
     processedTipIds.add(eventId);
+    trimProcessedTips();
 
     const oldProgress = Number(goalProgress) || 0;
-    const inc = Number(event.amount) || 0;
+    const inc = parseAmount(event.amount || event.data?.amount || 0);
+  LOG('Parsed donation amount', { raw: event.amount, inc });
+    if (inc <= 0) {
+  LOG('Ignoring non-positive donation increment', inc);
+      return; // do not animate nor update goal
+    }
     const newProgress = oldProgress + inc;
     goalProgress = newProgress; // update first so decision reflects new state exactly once
 
@@ -963,8 +1028,6 @@ updateDonation = function(d,a){ markActivity(); return __origUpdateDonation(d,a)
 const __origUpdateSubCount = updateSubCount;
 updateSubCount = function(c,a){ markActivity(); return __origUpdateSubCount(c,a); };
 
-// After widget load & field data apply we setup ambient if enabled
-window.addEventListener('onWidgetLoad', () => { setTimeout(setupAmbientShine, 1000); });
 window.addEventListener('onSessionUpdate', () => markActivity());
 window.addEventListener('onEventReceived', () => markActivity());
 /* ===================================================================== */

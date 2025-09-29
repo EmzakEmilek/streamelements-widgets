@@ -1,4 +1,4 @@
-# Donation & Subgoal Bar Widget (v0.9.3-pre)
+# Donation & Subgoal Bar Widget (v0.9.3)
 
 English | [Slovensky](#slovensky)
 
@@ -333,7 +333,8 @@ Obchodné otázky / bundling: doplň kontakt.
 ## 11. Poznámky Autora
 0.9.1-pre: zlúčený sub glow, dual konfety, milestone toggle, výkon.  
 0.9.2-pre: ambient shine, heart mód, zlepšené glow.  
-0.9.3-pre: Smart Auto Contrast, dokumentácia, font fallback heuristika, throttle percent.  
+0.9.3: FINAL auto contrast + event odolnosť (fallback pre suby bez snapshotu, robustné parsovanie darov, trimming duplicitných tip ID, ignorovanie nulových donátov).
+0.9.3-pre: Smart Auto Contrast, dokumentácia, font fallback heuristika, throttle percent.
 1.0.0: cieľ – komerčne pripravená verzia.
 
 ## 12. FAQ

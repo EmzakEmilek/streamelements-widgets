@@ -9,6 +9,11 @@ High-level multi-widget timeline. Each widget maintains its own detailed `CHANGE
 | Raid Terminal Tracker | 0.2.0 | Raider qualification (message / silent event), delayed reveal, ASCII activity tree, pruning & stats |
 | IG Multi-Popup | 0.8.2 | Theming & polish: per-type gradients, expanded icon set, pulse, unified bounce (extended alias), docs revamp |
 
+## 2025-09-29
+| Widget | Version | Summary |
+|--------|---------|---------|
+| Donation & Subgoal Bar | 0.9.3 | Finalized auto contrast + resilient sub fallback, donation amount normalizer, duplicate tip trimming, ambient lifecycle merge |
+
 ## Version Tag Pattern
 ```
 donationbar-v<ver>
